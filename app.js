@@ -1,7 +1,7 @@
 //Enter your code here..
 
 const parentEle = document.getElementById("message");
-
+/*
 function display(user){
     let newItem = document.createElement('div');
     newItem.className = "player";
@@ -29,17 +29,32 @@ function display(user){
     
     parentEle.append(newItem);
 }
+*/
 
 
 async function data(){
     try{
         let res = await fetch('https://jsonplaceholder.typicode.com/users');
-        let res2 = await res.json();
-        
+        let result = await res.json();
+        var player='<h2>Lists of Users</h2>';
+        result.forEach(function(user) {
+                player+=
+                    `<div class="player">
+                      <div class="strength">Name : ${user.name}</div>
+                      <div>Email   : ${user.email}</div>
+                      <div>Phone   : ${user.phone}</div>
+                      <div>Website : ${user.website}</div>
+                      <div>Company : ${user.company.name}</div>
+                      <div>City    : ${user.address.city}</div>
+                      <div>Zipcode : ${user.address.zipcode}</div>
+                    </div>`
+        })
+        parentEle.innerHTML = player;
+        /*
         for(let i = 0; i<res2.length; i++){
             display(res2[i]);
             console.log(res2[i]);
-        }
+        }*/
     }catch(error){
         console.log(error);
     }
